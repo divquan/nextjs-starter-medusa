@@ -1,6 +1,7 @@
 import { listCategories } from "@lib/data/categories"
 import { listCollections } from "@lib/data/collections"
 import { Text, clx } from "@medusajs/ui"
+import { Instagram, Twitter, Facebook, Mail } from "lucide-react"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import MedusaCTA from "@modules/layout/components/medusa-cta"
@@ -12,144 +13,195 @@ export default async function Footer() {
   const productCategories = await listCategories()
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
-      <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            >
-              Medusa Store
-            </LocalizedClientLink>
-          </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {productCategories && productCategories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Categories
-                </span>
-                <ul
-                  className="grid grid-cols-1 gap-2"
-                  data-testid="footer-categories"
-                >
-                  {productCategories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return
-                    }
+    <footer className="w-full bg-white">
+      {/* Ghana flag colors bar */}
+      <div className="w-full h-1 flex">
+        <div className="w-1/3 h-full bg-red-500"></div>
+        <div className="w-1/3 h-full bg-yellow-400"></div>
+        <div className="w-1/3 h-full bg-green-500"></div>
+      </div>
 
-                    const children =
-                      c.category_children?.map((child) => ({
-                        name: child.name,
-                        handle: child.handle,
-                        id: child.id,
-                      })) || null
-
-                    return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
-                        key={c.id}
-                      >
-                        <LocalizedClientLink
-                          className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
-                          )}
-                          href={`/categories/${c.handle}`}
-                          data-testid="category-link"
-                        >
-                          {c.name}
-                        </LocalizedClientLink>
-                        {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
-                            {children &&
-                              children.map((child) => (
-                                <li key={child.id}>
-                                  <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
-                                    href={`/categories/${child.handle}`}
-                                    data-testid="category-link"
-                                  >
-                                    {child.name}
-                                  </LocalizedClientLink>
-                                </li>
-                              ))}
-                          </ul>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
+      {/* Newsletter section */}
+      <div className="w-full bg-gray-50 py-12">
+        <div className="max-w-6xl mx-auto px-6 md:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="max-w-md">
+              <h3 className="text-2xl font-bold mb-2">Join the movement</h3>
+              <p className="text-gray-600">
+                Get exclusive offers, Ghana-inspired style tips and updates on
+                new merch drops.
+              </p>
+            </div>
+            <div className="w-full md:w-auto">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+                />
+                <button className="bg-black text-white px-6 py-3 rounded-lg font-medium">
+                  Subscribe
+                </button>
               </div>
-            )}
-            {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
-                </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
-                    {
-                      "grid-cols-2": (collections?.length || 0) > 3,
-                    }
-                  )}
-                >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
-                      <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
-                      >
-                        {c.title}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
-                <li>
-                  <a
-                    href="https://github.com/medusajs"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://docs.medusajs.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/medusajs/nextjs-starter-medusa"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Source code
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
-          <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
-          </Text>
-          <MedusaCTA />
+      </div>
+
+      {/* Main footer content */}
+      <div className="max-w-6xl mx-auto px-6 md:px-8">
+        <div className="py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
+          {/* Brand section */}
+          <div className="col-span-1">
+            <LocalizedClientLink
+              href="/"
+              className="text-2xl font-bold text-black mb-4 block"
+            >
+              Make Ghana Great
+            </LocalizedClientLink>
+            <p className="text-gray-600 mb-6">
+              Premium quality apparel celebrating Ghanaian heritage and culture.
+            </p>
+            <div className="flex space-x-4">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-black transition-colors"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="#"
+                className="text-gray-400 hover:text-black transition-colors"
+              >
+                <Twitter size={20} />
+              </a>
+              <a
+                href="#"
+                className="text-gray-400 hover:text-black transition-colors"
+              >
+                <Facebook size={20} />
+              </a>
+              <a
+                href="#"
+                className="text-gray-400 hover:text-black transition-colors"
+              >
+                <Mail size={20} />
+              </a>
+            </div>
+          </div>
+
+          {/* Categories */}
+          {productCategories && productCategories?.length > 0 && (
+            <div className="col-span-1">
+              <h3 className="font-bold mb-4">Categories</h3>
+              <ul className="space-y-2">
+                {productCategories?.slice(0, 6).map((c) => {
+                  if (c.parent_category) {
+                    return null
+                  }
+
+                  return (
+                    <li key={c.id}>
+                      <LocalizedClientLink
+                        className="text-gray-600 hover:text-black transition-colors"
+                        href={`/categories/${c.handle}`}
+                        data-testid="category-link"
+                      >
+                        {c.name}
+                      </LocalizedClientLink>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )}
+
+          {/* Collections */}
+          {collections && collections.length > 0 && (
+            <div className="col-span-1">
+              <h3 className="font-bold mb-4">Collections</h3>
+              <ul className="space-y-2">
+                {collections?.slice(0, 6).map((c) => (
+                  <li key={c.id}>
+                    <LocalizedClientLink
+                      className="text-gray-600 hover:text-black transition-colors"
+                      href={`/collections/${c.handle}`}
+                    >
+                      {c.title}
+                    </LocalizedClientLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Quick links */}
+          {/* <div className="col-span-1">
+            <h3 className="font-bold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              <li>
+                <LocalizedClientLink
+                  href="/about"
+                  className="text-gray-600 hover:text-black transition-colors"
+                >
+                  About Us
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/contact"
+                  className="text-gray-600 hover:text-black transition-colors"
+                >
+                  Contact
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/faqs"
+                  className="text-gray-600 hover:text-black transition-colors"
+                >
+                  FAQs
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/shipping"
+                  className="text-gray-600 hover:text-black transition-colors"
+                >
+                  Shipping & Returns
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/medusajs/nextjs-starter-medusa"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-gray-600 hover:text-black transition-colors"
+                >
+                  Source Code
+                </a>
+              </li>
+            </ul>
+          </div> */}
+        </div>
+
+        {/* Bottom section with copyright and payment methods */}
+        <div className="py-8 border-t border-gray-100">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <Text className="text-gray-500 text-sm">
+              © {new Date().getFullYear()} Make Ghana Great. All rights
+              reserved.
+            </Text>
+
+            <div className="flex items-center gap-3">
+              <div className="flex space-x-2">
+                <div className="w-10 h-6 bg-gray-200 rounded"></div>
+                <div className="w-10 h-6 bg-gray-200 rounded"></div>
+                <div className="w-10 h-6 bg-gray-200 rounded"></div>
+                <div className="w-10 h-6 bg-gray-200 rounded"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
