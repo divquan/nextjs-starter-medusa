@@ -5,7 +5,10 @@ import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
-
+import { Montserrat } from "next/font/google"
+const mosterrat = Montserrat({
+  display: "swap",
+})
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
 
@@ -19,13 +22,17 @@ export default async function Nav() {
             </div>
           </div>
 
-          <div className="flex items-center h-full">
+          <div className={`flex items-center h-full ${mosterrat.className}`}>
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+              className="txt-compact-medium-plus hover:text-ui-fg-base uppercase"
               data-testid="nav-store-link"
             >
-              Make Ghana Great Again
+              Make
+              <span className="font-bold text-red-500"> Gh</span>
+              <span className="font-bold text-yellow-500">an</span>
+              <span className="font-bold text-green-500">a </span>
+              Great Again
             </LocalizedClientLink>
           </div>
 
