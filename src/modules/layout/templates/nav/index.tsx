@@ -8,6 +8,7 @@ import SideMenu from "@modules/layout/components/side-menu"
 import { Montserrat } from "next/font/google"
 const mosterrat = Montserrat({
   display: "swap",
+  subsets: ["latin"],
 })
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
