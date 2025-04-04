@@ -62,7 +62,7 @@ export default async function Footer() {
             <p className="text-gray-600 mb-6">
               Premium quality apparel celebrating Ghanaian heritage and culture.
             </p>
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               <a
                 href="#"
                 className="text-gray-400 hover:text-black transition-colors"
@@ -87,7 +87,7 @@ export default async function Footer() {
               >
                 <Mail size={20} />
               </a>
-            </div>
+            </div> */}
           </div>
 
           {/* Categories */}

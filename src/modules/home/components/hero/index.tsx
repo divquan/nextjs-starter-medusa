@@ -17,7 +17,7 @@ const Hero = () => {
               lifestyle.
             </p>
             <Link href={"/us/store"}>
-              <Button className="inline-flex h-10 items-center justify-center rounded-full bg-neutral-900 px-6 font-medium text-neutral-50 transition-colors hover:bg-neutral-900/90 focus:outline-hidden focus:ring-1 focus:ring-neutral-950">
+              <Button className="inline-flex mt-4 h-10 items-center justify-center rounded-full bg-neutral-900 px-6 font-medium text-neutral-50 transition-colors hover:bg-neutral-900/90 focus:outline-hidden focus:ring-1 focus:ring-neutral-950">
                 Shop Now
               </Button>
             </Link>
